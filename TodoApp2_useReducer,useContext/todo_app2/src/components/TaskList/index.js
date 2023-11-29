@@ -1,8 +1,15 @@
-import React from "react";
-const TaskList = ({ tasks, toggleTask }) => {
+import React, { useContext } from "react";
+import TodoContext,{ACTIONS} from "../TodoContext";
+const TaskList = () => {
+    const {state, dispatch}=useContext(TodoContext)
+    const filteredTasks = state.tasks.filter( (task) => task.title.toLowerCase().includes(state.filter.toLowerCase()));
+    
+    const toggleTask=(id)=>{
+      dispatch({type:ACTIONS.TOGGLE_TASK, payload:{ id}})
+    }
     return (
       <ul>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <li
             className="TaskItem"
             key={task.id}

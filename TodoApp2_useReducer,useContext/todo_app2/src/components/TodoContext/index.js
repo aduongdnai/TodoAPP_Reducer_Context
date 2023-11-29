@@ -1,6 +1,14 @@
 import React, { createContext, useReducer } from 'react';
-//import todoReducer,{initialState} from './todoReducer.js';
+
 const TodoContext=createContext()
+const initialState={
+    tasks: [
+        { id:1, title: 'Read Book', completed: false},
+        { id:2, title: 'Do Exercise', completed: false},
+        { id:3, title: 'Do Homework', completed: false}],
+    filter:''
+}
+
 export const ACTIONS={
     ADD_TASK: "ADD_TASK",
     TOGGLE_TASK: "TOGGLE_TASK",
@@ -32,13 +40,7 @@ const todoReducer=(state, action)=> {
     }
     
 }
-const initialState={
-    tasks: [
-        { id:1, title: 'Read Book', completed: false},
-        { id:2, title: 'Do Exercise', completed: false},
-        { id:3, title: 'Do Homework', completed: false}],
-    filter:''
-}
+
 export const TodoProvider=({children})=>{
     const [state,dispatch]=useReducer(todoReducer,initialState)
     console.log(state,dispatch);

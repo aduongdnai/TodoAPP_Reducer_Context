@@ -1,17 +1,19 @@
 import './App.css';
 import TodoApp from './components/TodoApp';
 
-import { TodoProvider } from './components/TodoContext';
+//import { TodoProvider } from './components/TodoContext';
 
 function App() {
   
   return (
-    <TodoProvider>
+   
       <div className="App">
-        <TodoApp/>
+         
+            <TodoApp/>
+         
+        
       </div>
-    </TodoProvider>
-  );
+  )
 }
 
 export default App;

@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-
-const AddTask = ({ addTask }) => {
+import React, { useState,useContext } from 'react';
+import TodoContext,{ACTIONS} from '../TodoContext';
+const AddTask = () => {
   const [newTask, setNewTask] = useState('');
-
+  const {state,dispatch}=useContext(TodoContext)
+  const addTask=(newTask)=>{
+      dispatch({type: ACTIONS.ADD_TASK, payload:{ newTask}})
+  }
   const handleAddTask = () => {
     if (newTask.trim() !== '') {
       addTask(newTask);

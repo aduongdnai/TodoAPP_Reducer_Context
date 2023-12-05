@@ -1,42 +1,55 @@
 import todoModel from "../models/todo.model.js";
 import express from "express";
 
-const router=express.Router();
-router.post('/add',async (req,res)=>{
-    try{
-        const result=await todoModel.add(req.body);
+const router = express.Router();
+router.post('/', async (req, res) => {
+    try {
+        const result = await todoModel.add(req.body);
         res.status(202).json({
-            message:"Success",
+            message: "Success",
         })
-    }catch(err){
+    } catch (err) {
         console.log(err);
         res.status(500).json({
             error: "Internal Error"
         })
     }
-    
+
 })
-router.get('/',async (req,res)=>{
-    try{
-        const result=await todoModel.findAll();
+router.get('/', async (req, res) => {
+    try {
+        const result = await todoModel.findAllByUserID(req.query.id);
         res.status(202).json({
-            message:"Success",
+            message: "Success",
             data: result
         })
-    }catch(err){
+    } catch (err) {
         res.status(500).json({
             error: "Internal Error"
         })
     }
 })
-router.get('/:id', async (req,res)=>{
-    try{
-        const result=await todoModel.findById(req.params.id);
+router.get('/:id', async (req, res) => {
+    try {
+        const result = await todoModel.findById(req.params.id);
         res.status(201).json({
-            message:"Success",
+            message: "Success",
             data: result
         })
-    }catch(err){
+    } catch (err) {
+        res.status(500).json({
+            error: "Internal Error"
+        })
+    }
+})
+router.patch('/:id', async (req, res) => {
+    try {
+        const result = await todoModel.patch(req.params.id, req.body);
+        res.status(201).json({
+            message: "Success",
+            affected: result
+        })
+    } catch (err) {
         res.status(500).json({
             error: "Internal Error"
         })

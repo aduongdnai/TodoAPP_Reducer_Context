@@ -57,9 +57,9 @@ const todoReducer = (state, action) => {
 
 export const TodoProvider = ({ children }) => {
     const [state, dispatch] = useReducer(todoReducer, initialState)
-    console.log(state, dispatch);
+
     return (
-        <TodoContext.Provider value={{ state, dispatch}}>
+        <TodoContext.Provider value={{ state, dispatch }}>
             {children}
         </TodoContext.Provider>
     )

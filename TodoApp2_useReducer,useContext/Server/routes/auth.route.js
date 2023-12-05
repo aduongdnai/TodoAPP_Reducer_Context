@@ -7,7 +7,7 @@ router.post('/login', async (req, res) => {
         const { username, password } = req.body
         const dbUser = await staffModel.findByUserName(username)
         if (!dbUser) {
-            return res.status(400).json({ error: 'Username not exists' });
+            return res.status(400).json({ error: 'Username or Password is incorrect' });
         }
 
 
@@ -20,7 +20,7 @@ router.post('/login', async (req, res) => {
 
         } else {
             // Passwords do not match, authentication failed
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(400).json({ error: 'Username or Password is incorrect' });
         }
     } catch (error) {
         console.error('Error Login:', error);

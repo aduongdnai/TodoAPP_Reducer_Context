@@ -1,20 +1,20 @@
-import { useField } from "formik";
-import { Input } from '@chakra-ui/react'
+import { useField, Field } from "formik";
+import { FormControl, FormLabel, Input, FormErrorMessage } from '@chakra-ui/react'
 const CustomInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
-        <>
-            <label>{label}</label>
-            <input
+        <FormControl isInvalid={meta.touched && meta.error}>
+            <FormLabel>{label}</FormLabel>
+            <Input as={Field}
 
                 {...field}
                 {...props}
                 className={meta.touched && meta.error ? "input-error" : ' '}
             >
 
-            </input>
-            {meta.touched && meta.error && <div className="error">{meta.error}</div>}
-        </>
+            </Input>
+            <FormErrorMessage>{meta.error}</FormErrorMessage>
+        </FormControl>
     )
 }
 export default CustomInput;

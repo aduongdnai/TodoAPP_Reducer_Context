@@ -3,15 +3,19 @@ import AddTask from '../addTask'
 import FilterTask from '../filterTask'
 import TaskList from '../TaskList';
 import { TodoProvider} from '../TodoContext';
+import { Heading } from '@chakra-ui/react'
 function TodoApp() {
     
     
     return (
         <div>
-            <h1>Todo App</h1>
+            <Heading>TODO APP</Heading>
+            <br/>
             <TodoProvider>
                 <FilterTask />
+                <br/>
                 <TaskList ></TaskList>
+                <br/>
                 <AddTask ></AddTask>
             </TodoProvider>
             

@@ -1,5 +1,6 @@
 import React, { useState,useContext } from 'react';
 import TodoContext,{ACTIONS} from '../TodoContext';
+import { Input, Button, HStack, Center   } from "@chakra-ui/react";
 const AddTask = () => {
   const [newTask, setNewTask] = useState('');
   const {state,dispatch}=useContext(TodoContext)
@@ -14,14 +15,20 @@ const AddTask = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-      />
-      <button onClick={handleAddTask}>Add Task</button>
-    </div>
+    <Center>
+      <HStack>
+        <Input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          size="md"
+           // Adjust the width according to your preference
+        />
+        <Button colorScheme="teal" size="md" onClick={handleAddTask}>
+          Add Task
+        </Button>
+      </HStack>
+    </Center>
   );
 };
 

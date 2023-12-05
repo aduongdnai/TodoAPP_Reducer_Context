@@ -1,30 +1,41 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginScreen from './components/LoginScreen';
 import TodoApp from './components/TodoApp';
 import { ChakraProvider } from '@chakra-ui/react'
 import NotFound from './components/NotFound';
-import { AuthProvider } from './components/AuthContext';
-
-//import { TodoProvider } from './components/TodoContext';
+import AuthContext from './components/AuthContext';
+import { useContext } from 'react';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
-
+  const { state, dispatch } = useContext(AuthContext);
+  console.log(state.isAuth);
   return (
 
 
     <ChakraProvider>
       <div className="App">
-      <AuthProvider>
+
         <Router>
           <Routes>
-            <Route path="/" element={<TodoApp />} />
+
             <Route path="/login" element={<LoginScreen />} />
-            <Route path="/home" element={<TodoApp />} />
+
+            <Route path="/home" element={
+              <ProtectedRoute>
+                <TodoApp />
+              </ProtectedRoute>} />
+
+
+
+
+
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
-        </AuthProvider>
+
 
       </div>
     </ChakraProvider>

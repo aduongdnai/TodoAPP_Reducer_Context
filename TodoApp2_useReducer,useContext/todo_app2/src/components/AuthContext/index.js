@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 
 const AuthContext = createContext()
 const initialState = {
-    isAuth: "false"
+    isAuth: false
 }
 
 export const ACTIONS = {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, initialState)
     console.log(state, dispatch);
     return (
-        <AuthContext.Provider value={{ state, dispatch}}>
+        <AuthContext.Provider value={{ state, dispatch }}>
             {children}
         </AuthContext.Provider>
     )

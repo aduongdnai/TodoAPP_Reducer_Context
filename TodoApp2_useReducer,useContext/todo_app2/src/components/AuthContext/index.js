@@ -1,9 +1,9 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 
 const AuthContext = createContext()
 const initialState = {
     isAuth: false,
-    user_id:null
+    user_id: null
 }
 
 export const ACTIONS = {
@@ -33,8 +33,12 @@ const authReducer = (state, action) => {
 }
 
 export const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, initialState)
-
+    const storedAuthState = JSON.parse(localStorage.getItem('authState')) || initialState;
+    const [state, dispatch] = useReducer(authReducer, storedAuthState);
+    useEffect(() => {
+        // Save the authentication state to localStorage whenever it changes
+        localStorage.setItem('authState', JSON.stringify(state));
+    }, [state]);
     return (
         <AuthContext.Provider value={{ state, dispatch }}>
             {children}

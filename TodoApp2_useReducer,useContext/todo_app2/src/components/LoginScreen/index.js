@@ -32,7 +32,8 @@ const LoginScreen = () => {
       setError(result.Error)
     }
     if (result.data.success) {
-      dispatch({ type: ACTIONS.LOGIN , payload:{data: result.data}})
+      dispatch({ type: ACTIONS.LOGIN, payload: { data: result.data } })
+      localStorage.setItem("userData", JSON.stringify(state));
       navigate("/home");
     }
   }

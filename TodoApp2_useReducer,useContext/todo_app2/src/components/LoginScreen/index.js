@@ -23,23 +23,18 @@ const LoginScreen = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (values, actions) => {
-
     actions.resetForm()
     console.log(values);
     const result = await authApi.login(values);
-    console.log(result.Error);
+    console.log(result.error);
     if (result.Error) {
       console.log(result);
       setError(result.Error)
-
     }
     if (result.data.success) {
-      dispatch({ type: ACTIONS.LOGIN })
-      console.log(state.isAuth);
+      dispatch({ type: ACTIONS.LOGIN , payload:{data: result.data}})
       navigate("/home");
-
     }
-
   }
 
   return (
@@ -52,7 +47,6 @@ const LoginScreen = () => {
           initialValues={{
             username: '',
             password: '',
-
           }}
           validationSchema={LoginSchema}
           onSubmit={onSubmit}
@@ -60,7 +54,6 @@ const LoginScreen = () => {
           {({ props }) => (
             <VStack
               as={Form}
-
             >
               <Text as="p" color="red.500">{error}</Text>
               <CustomInput
@@ -69,7 +62,6 @@ const LoginScreen = () => {
                 placeholder="Enter your username"
                 type="text"
               />
-
               <CustomInput
                 name="password"
                 label="Password"
@@ -84,8 +76,6 @@ const LoginScreen = () => {
         </Formik>
       </VStack>
     </Center>
-
-
   );
 };
 

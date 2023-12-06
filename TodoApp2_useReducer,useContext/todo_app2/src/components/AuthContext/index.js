@@ -2,7 +2,8 @@ import React, { createContext, useReducer } from 'react';
 
 const AuthContext = createContext()
 const initialState = {
-    isAuth: false
+    isAuth: false,
+    user_id:null
 }
 
 export const ACTIONS = {
@@ -16,12 +17,14 @@ const authReducer = (state, action) => {
             return {
                 ...state,
                 isAuth: true,
+                user_id: payload.data.user_id
             }
 
         case ACTIONS.LOGOUT:
             return {
                 ...state,
                 isAuth: false,
+                user_id: null
             }
         default:
             return state;

@@ -5,7 +5,7 @@ import AuthContext from "../AuthContext";
 
 export const ProtectedRoute = ({ children }) => {
     const { state, dispatch } = useContext(AuthContext);
-    if (state.isAuth == false) {
+    if (state.isAuth === false) {
         // user is not authenticated
         return <Navigate to="/login" />;
     }

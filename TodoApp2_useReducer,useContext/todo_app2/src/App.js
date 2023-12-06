@@ -7,36 +7,26 @@ import NotFound from './components/NotFound';
 import AuthContext from './components/AuthContext';
 import { useContext } from 'react';
 import { ProtectedRoute } from './components/ProtectedRoute';
-
+import { TodoProvider } from './components/TodoContext';
 function App() {
   const { state, dispatch } = useContext(AuthContext);
   console.log(state.isAuth);
   return (
-
-
     <ChakraProvider>
       <div className="App">
-
         <Router>
           <Routes>
-
             <Route path="/login" element={<LoginScreen />} />
-
             <Route path="/home" element={
               <ProtectedRoute>
+                <TodoProvider>
                 <TodoApp />
+                </TodoProvider>
+                
               </ProtectedRoute>} />
-
-
-
-
-
-
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
-
-
       </div>
     </ChakraProvider>
   )

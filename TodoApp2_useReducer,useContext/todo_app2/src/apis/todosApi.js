@@ -1,9 +1,9 @@
 
 import { API } from './axiosClient'
 
-export const getAllTodo = async () => {
-    const result = await API.get('/api/v1/todos')
-    return result
+export const getAllTodo = async (id) => {
+    const result = await API.get(`/api/v1/todos?id=${id}`)
+    return result.data
 }
 export const addTodo = async (data) => {
     const result = await API.post('/api/v1/todos', data)

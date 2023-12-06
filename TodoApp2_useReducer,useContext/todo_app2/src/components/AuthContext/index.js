@@ -6,21 +6,24 @@ const initialState = {
     user_id: null
 }
 
-export const ACTIONS = {
+export const AUTH_ACTIONS = {
     LOGIN: "LOGIN",
     LOGOUT: "LOGOUT",
 }
 const authReducer = (state, action) => {
     const { type, payload } = action
     switch (type) {
-        case ACTIONS.LOGIN:
+        case AUTH_ACTIONS.LOGIN:
+            localStorage.setItem("userID", JSON.stringify(payload.data.user_id));
             return {
                 ...state,
                 isAuth: true,
                 user_id: payload.data.user_id
+
             }
 
-        case ACTIONS.LOGOUT:
+        case AUTH_ACTIONS.LOGOUT:
+            localStorage.clear();
             return {
                 ...state,
                 isAuth: false,
@@ -33,12 +36,10 @@ const authReducer = (state, action) => {
 }
 
 export const AuthProvider = ({ children }) => {
-    const storedAuthState = JSON.parse(localStorage.getItem('authState')) || initialState;
-    const [state, dispatch] = useReducer(authReducer, storedAuthState);
-    useEffect(() => {
-        // Save the authentication state to localStorage whenever it changes
-        localStorage.setItem('authState', JSON.stringify(state));
-    }, [state]);
+
+    const [state, dispatch] = useReducer(authReducer, initialState);
+
+
     return (
         <AuthContext.Provider value={{ state, dispatch }}>
             {children}

@@ -5,7 +5,8 @@ import AuthContext from "../AuthContext";
 
 export const ProtectedRoute = ({ children }) => {
     const { state, dispatch } = useContext(AuthContext);
-    if (state.isAuth === false) {
+    const storedUserID = localStorage.getItem("userID");
+    if (state.isAuth === false && !storedUserID) {
         // user is not authenticated
         return <Navigate to="/login" />;
     }

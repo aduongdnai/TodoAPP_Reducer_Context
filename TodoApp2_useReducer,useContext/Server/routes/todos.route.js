@@ -5,6 +5,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     console.log(req);
     try {
+        if (!req.query.id) {
+            res.status(400).json({
+                error: "Missing user ID in query"
+            })
+        }
         const result = await todoModel.findAllByUserID(req.query.id);
         res.status(202).json({
             message: "Success",

@@ -1,10 +1,9 @@
 import { Input, Button, VStack, Heading, FormControl, Text, Center, ButtonGroup } from "@chakra-ui/react";
 import { useState, useContext } from "react";
-import AuthContext, { ACTIONS } from '../AuthContext';
+import AuthContext, { AUTH_ACTIONS } from '../AuthContext';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup';
-import './style.css'
 import CustomInput from "../CustomInput"
 import * as authApi from "../../apis/authApi";
 const LoginSchema = Yup.object().shape({
@@ -31,9 +30,9 @@ const LoginScreen = () => {
       console.log(result);
       setError(result.Error)
     }
+
     if (result.data.success) {
-      dispatch({ type: ACTIONS.LOGIN, payload: { data: result.data } })
-      localStorage.setItem("userData", JSON.stringify(state));
+      dispatch({ type: AUTH_ACTIONS.LOGIN, payload: { data: result.data } })
       navigate("/home");
     }
   }
